@@ -1,0 +1,14 @@
+class Recipe
+	include HTTParty
+
+    key_value = ENV['FOOD2FORK_KEY'] || '94113606c4b98a529fe71d9f1379af65'
+    hostport = ENV['FOOD2FORK_SERVER_AND_PORT'] || 'www.food2fork.com'
+    #94113606c4b98a529fe71d9f1379af65
+	base_uri "http://#{hostport}/api"
+	default_params key: key_value
+	format :json
+
+	def self.for(keyword)
+		get("/search", query: { q: keyword})["recipes"]
+    end
+end
